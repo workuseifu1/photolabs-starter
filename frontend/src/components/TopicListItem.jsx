@@ -1,20 +1,33 @@
-import React , {useState}from "react";
-import TopicList from "./TopicList";
-import PhotoList from "./PhotoList";
-import "../styles/TopicListItem.scss";
+// import React from "react";
 
-const TopicListItem = ({ id, title, slug, categories }) => {   
-  const [selectedTopic, setSelectedTopic] = useState(slug);
+// import "../styles/TopicListItem.scss";
 
-  const handleSelectTopic = () => {
-    setSelectedTopic(slug);
-  };
+
+// const TopicListItem = ({ id, title, slug, categories }) => {   
+//   const [selectedTopic, setSelectedTopic] = useState(slug);
+
+//   const handleSelectTopic = () => {
+//     setSelectedTopic(slug);
+//   };
        
+//   return (
+//     <div className={`topic-list__item ${selectedTopic === slug ? "active" : ""}`} onClick={handleSelectTopic} >
+//       <span>{title}</span>
+//     </div>
+//   );
+// }
+import React from 'react';
+import '../styles/TopicListItem.scss';
+
+const TopicListItem = ({ title, slug, onSelectTopic }) => {
+  const handleClick = () => {
+    onSelectTopic(slug);
+  };
+
   return (
-    <div className={`topic-list__item ${selectedTopic === slug ? "active" : ""}`} onClick={handleSelectTopic} >
+    <div className="topic-list__item" onClick={handleClick}>
       <span>{title}</span>
     </div>
   );
 };
-
 export default TopicListItem;
