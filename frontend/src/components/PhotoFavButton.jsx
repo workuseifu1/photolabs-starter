@@ -3,11 +3,17 @@ import React, { useCallback, useState } from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton() {
+function PhotoFavButton({favorites, toggleFavorites, photoId}) {
+  const toggleFavoritePhoto = () => {
+    toggleFavorites(photoId)
+  }
+
+  const colorCheck = favorites.includes(photoId)
   return (
-    <div className="photo-list__fav-icon">
+    <div className="photo-list__fav-icon" onClick={toggleFavoritePhoto}>
       <div className="photo-list__fav-icon-svg">
         {/* Insert React */}
+        <FavIcon selected={colorCheck} />
       </div>
     </div>
   );
