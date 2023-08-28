@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
@@ -8,7 +8,9 @@ function PhotoFavButton({favorites, toggleFavorites, photoId}) {
     toggleFavorites(photoId)
   }
 
-  const colorCheck = favorites.includes(photoId)
+  
+  const colorCheck = favorites ? favorites.includes(photoId): false;
+  
   return (
     <div className="photo-list__fav-icon" onClick={toggleFavoritePhoto}>
       <div className="photo-list__fav-icon-svg">

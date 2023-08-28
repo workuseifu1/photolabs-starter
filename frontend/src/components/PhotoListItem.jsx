@@ -5,7 +5,7 @@ import "../styles/PhotoListItem.scss";
 
 
 
-const PhotoListItem = ({   id, location, urls, user,liked, favorites,toggleFavorites, photo}) => {
+const PhotoListItem = ({   id, location, urls, user,liked, favorites,selectedTopics, toggleFavorites, photo, openModal}) => {
   /* Insert React */
   
   const [isLiked, setIsLiked] = useState(liked);
@@ -14,7 +14,7 @@ const PhotoListItem = ({   id, location, urls, user,liked, favorites,toggleFavor
     setIsLiked(!isLiked);
   }
   return (
-    <div className="photo-list__item">
+    <div className="photo-list__item" onClick={openModal}>
       <PhotoFavButton photoId={photo.id} favorites={favorites} toggleFavorites={toggleFavorites} selected={isLiked} onClick={handleFavIconClick}/>      
       <img src={urls.regular} alt={`Photo by ${user.username}`} className="photo-list__image" />
       <div className="photo-list__user-info">

@@ -1,33 +1,36 @@
-// import React from "react";
+// import React, {useState} from 'react';
+// import '../styles/TopicListItem.scss';
 
-// import "../styles/TopicListItem.scss";
-
-
-// const TopicListItem = ({ id, title, slug, categories }) => {   
-//   const [selectedTopic, setSelectedTopic] = useState(slug);
-
-//   const handleSelectTopic = () => {
-//     setSelectedTopic(slug);
+// const TopicListItem = ({ title, slug,onSelectTopic, selected}) => {
+//   const [selectTopic, setSelectTopic] = useState(selected)
+//   const handleClick = () => {
+//     setSelectTopic(!selectTopic);
+//     onSelectTopic(slug);
 //   };
-       
+
 //   return (
-//     <div className={`topic-list__item ${selectedTopic === slug ? "active" : ""}`} onClick={handleSelectTopic} >
+//     <div className={`topic-list__item ${isTopicSelected ? 'selected' : ''}`} onClick={handleClick}>
 //       <span>{title}</span>
 //     </div>
 //   );
-// }
-import React from 'react';
+// };
+import React, { useState } from 'react';
 import '../styles/TopicListItem.scss';
 
-const TopicListItem = ({ title, slug, onSelectTopic }) => {
+const TopicListItem = ({ title, slug, onSelectTopic, selected }) => {
+  const [isTopicSelected, setIsTopicSelected] = useState(selected);
+
   const handleClick = () => {
+    setIsTopicSelected(!isTopicSelected);
+    console.log(slug)
     onSelectTopic(slug);
   };
 
   return (
-    <div className="topic-list__item" onClick={handleClick}>
+    <div className={`topic-list__item ${isTopicSelected ? 'selected' : ''}`} onClick={handleClick}>
       <span>{title}</span>
     </div>
   );
 };
+
 export default TopicListItem;
