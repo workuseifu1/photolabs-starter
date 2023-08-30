@@ -1,22 +1,26 @@
-import React from 'react';
-import HomeRoute from 'routes/HomeRoute';
-import './App.scss';
-import useApplicationData from 'hooks/useApplicationData';
-import PhotoDetailsModal from 'routes/PhotoDetailsModal';
+import React from "react";
+import useApplicationData from "hooks/useApplicationData";
+import PhotoDetailsModal from "routes/PhotoDetailsModal";
+import HomeRoute from "routes/HomeRoute";
+import "./App.scss";
 
 const App = () => {
-  const { state,
+  const {
+    state,
     updateToFavPhotoIds,
-    setPhotoSelected,
-    onClosePhotoDetailsModal,
-    fetchPhotosByTopic} = useApplicationData();
+    // setPhotoSelected,
+    // onClosePhotoDetailsModal,
+    fetchPhotosByTopic,
+  } = useApplicationData();
   return (
-    <div className='App'>      
-      <HomeRoute handleSelectTopic={fetchPhotosByTopic} 
-      toggleFavorites={updateToFavPhotoIds}
-       photos={state.photoData} 
-       topics={state.topicData} 
-       favorites={state.favorites}/>
+    <div className="App">
+      <HomeRoute
+        handleSelectTopic={fetchPhotosByTopic}
+        toggleFavorites={updateToFavPhotoIds}
+        photos={state.photoData}
+        topics={state.topicData}
+        favorites={state.favorites}
+      />
       <PhotoDetailsModal/>
     </div>
   );

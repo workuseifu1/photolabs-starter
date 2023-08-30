@@ -3,7 +3,13 @@ import PhotoList from "components/PhotoList";
 import "../styles/PhotoDetailsModal.scss";
 import closeSymbol from "../assets/closeSymbol.svg";
 
-const PhotoDetailsModal = ({ closeModal, selectedPhoto }) => {
+const PhotoDetailsModal = ({
+  closeModal,
+  selectedPhoto,
+  openModal,
+  favorites,
+  toggleFavorites,
+}) => {
   if (!selectedPhoto) {
     return null; // Return null if no photo is selected
   }
@@ -30,11 +36,15 @@ const PhotoDetailsModal = ({ closeModal, selectedPhoto }) => {
           <div className="photo-details-modal__similar-photos">
             {/* Reuse the PhotoList component to display similar photos */}
             <h2>Similar Photos</h2>
-            <PhotoList photos={Object.values(similar_photos)} />
+            <PhotoList
+              favorites={favorites}
+              toggleFavorites={toggleFavorites}
+              photos={Object.values(similar_photos)}
+              openModal={(photoId) => openModal(photoId)}
+            />
           </div>
         )}
       </div>
-      {/* ... (other content) */}
     </div>
   );
 };

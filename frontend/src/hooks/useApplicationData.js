@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
+import {useEffect, useReducer } from "react";
 const initialState = {
   //…rest of the state
   photoData: [],
@@ -23,10 +23,6 @@ function reducer(state, action) {
       ...state,
       favorites: state.favorites.filter((favPhotoId) => favPhotoId !== action.payload.id)
     };
-  } else if (action.type === SELECT_PHOTO) {
-    return { ...state, selectedPhoto: action.payload.photo };
-  } else if (action.type === CLOSE_PHOTO_MODAL) {
-    return { ...state, selectedPhoto: null };
   } else if (action.type === LOAD_INITIAL_DATA) {
     // Load initial data from action.payload and update the state
     return { ...state, ...action.payload };
@@ -40,28 +36,15 @@ function reducer(state, action) {
   }
 }
 function useApplicationData() {
-  // const [state, setState] = useState({
-  //   photos: [],
-  //   topics: [],
-  //   // ... other state properties
-  // });
 const [state,dispatch] = useReducer(reducer,initialState);
   const updateToFavPhotoIds = (photoId) => {
     if (state.favorites.includes(photoId)) {
-      // const updatedFavorites = state.favorites.filter((favPhotoId) => favPhotoId !== photoId);
       dispatch({type:FAV_PHOTO_REMOVED, payload: {id: photoId}});
     } else {
       dispatch({type: FAV_PHOTO_ADDED, payload:{id:photoId}});
     }
   };
-
-  const setPhotoSelected = (photo) => {
-    dispatch({type:SELECT_PHOTO, payload: {photo}});
-  };
-
-  const onClosePhotoDetailsModal = () => {
-    dispatch({type: CLOSE_PHOTO_MODAL});
-  };
+  
   const fetchPhotosByTopic = (topicId) => {
     console.log('fetch photos by topic',topicId )
     return fetch(`/api/topics/photos/${topicId}`)
@@ -71,22 +54,18 @@ const [state,dispatch] = useReducer(reducer,initialState);
   // Load initial data from API
   
   useEffect(() => {
-    // Fetch photos, topics, etc. from API and set the state
      fetch('/api/photos')
      .then(response => response.json())
      .then(data =>dispatch({ type: SET_PHOTO_DATA, payload: data }))
      fetch('/api/topics')
      .then(response => response.json())
      .then(data =>dispatch({ type: SET_TOPIC_DATA, payload: data }))
-    // Example: fetchTopics().then((topics) => setState((prev) => ({ ...prev, topics })));
   }, []);
 
   return {
     state,
     fetchPhotosByTopic,
     updateToFavPhotoIds,
-    setPhotoSelected,
-    onClosePhotoDetailsModal
   };
 }
 

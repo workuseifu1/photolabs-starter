@@ -5,31 +5,12 @@ import PhotoDetailsModal from "./PhotoDetailsModal";
 import "../styles/HomeRoute.scss";
 
 const HomeRoute = ({ photos, topics,favorites,toggleFavorites,handleSelectTopic }) => {
-  // const [favorites, setFavorites] = useState([]);
-  // const [selectedTopics, setSelectedTopics] = useState([]);
+  
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const handleSelectTopic = (selectedTopic) => {
-  //   console.log("inside handles select topic",selectedTopic);
-  //   if (selectedTopics.includes(selectedTopic)) {
-  //     setSelectedTopics(
-  //       selectedTopics.filter((topic) => topic !== selectedTopic)
-  //     );
-  //     return;
-  //   }
-  //   setSelectedTopics([...selectedTopics, selectedTopic]);
-  // };
-  // const toggleFavorites = (photoId) => {
-  //   if (favorites.includes(photoId)) {
-  //     // Remove the photoId from favorites
-  //     const updatedFavorites = favorites.filter((favPhotoId) => favPhotoId !== photoId);
-  //     setFavorites(updatedFavorites);
-  //   } else {
-  //     // Add the photoId to favorites
-  //     setFavorites([...favorites, photoId]);
-  //   }
-  // };
+  
   const openModal = (photoId) => {
+    // console.log("33 => photoId", photoId)
     const selectedPhoto = photos.find((photo) => photo.id === photoId);
     setSelectedPhoto(selectedPhoto);
     setIsModalOpen(true);
@@ -49,15 +30,15 @@ const HomeRoute = ({ photos, topics,favorites,toggleFavorites,handleSelectTopic 
         photos={photos}
         favorites={favorites}
         toggleFavorites={toggleFavorites}
-        // selectedTopics={selectedTopics}
-        openModal={openModal}
+        openModal={(photoId) => openModal(photoId)}
       />
       {isModalOpen && (
         <PhotoDetailsModal
           closeModal={closeModal}
+          openModal={(photoId) => openModal(photoId)}
           selectedPhoto={selectedPhoto}
-          favorites = {favorites} // favorites to the modal
-          toggleFavorites={toggleFavorites} //pass toggleFavortes function to the modal
+          favorites = {favorites} 
+          toggleFavorites={toggleFavorites} 
         />
       )}
     </div>
