@@ -4,30 +4,31 @@ import PhotoList from "components/PhotoList";
 import PhotoDetailsModal from "./PhotoDetailsModal";
 import "../styles/HomeRoute.scss";
 
-const HomeRoute = ({ photos, topics }) => {
-  const [favorites, setFavorites] = useState([]);
-  const [selectedTopics, setSelectedTopics] = useState([]);
+const HomeRoute = ({ photos, topics,favorites,toggleFavorites,handleSelectTopic }) => {
+  // const [favorites, setFavorites] = useState([]);
+  // const [selectedTopics, setSelectedTopics] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleSelectTopic = (selectedTopic) => {
-    if (selectedTopics.includes(selectedTopic)) {
-      setSelectedTopics(
-        selectedTopics.filter((topic) => topic !== selectedTopic)
-      );
-      return;
-    }
-    setSelectedTopics([...selectedTopics, selectedTopic]);
-  };
-  const toggleFavorites = (photoId) => {
-    if (favorites.includes(photoId)) {
-      // Remove the photoId from favorites
-      const updatedFavorites = favorites.filter((favPhotoId) => favPhotoId !== photoId);
-      setFavorites(updatedFavorites);
-    } else {
-      // Add the photoId to favorites
-      setFavorites([...favorites, photoId]);
-    }
-  };
+  // const handleSelectTopic = (selectedTopic) => {
+  //   console.log("inside handles select topic",selectedTopic);
+  //   if (selectedTopics.includes(selectedTopic)) {
+  //     setSelectedTopics(
+  //       selectedTopics.filter((topic) => topic !== selectedTopic)
+  //     );
+  //     return;
+  //   }
+  //   setSelectedTopics([...selectedTopics, selectedTopic]);
+  // };
+  // const toggleFavorites = (photoId) => {
+  //   if (favorites.includes(photoId)) {
+  //     // Remove the photoId from favorites
+  //     const updatedFavorites = favorites.filter((favPhotoId) => favPhotoId !== photoId);
+  //     setFavorites(updatedFavorites);
+  //   } else {
+  //     // Add the photoId to favorites
+  //     setFavorites([...favorites, photoId]);
+  //   }
+  // };
   const openModal = (photoId) => {
     const selectedPhoto = photos.find((photo) => photo.id === photoId);
     setSelectedPhoto(selectedPhoto);
@@ -40,8 +41,7 @@ const HomeRoute = ({ photos, topics }) => {
   return (
     <div className="home-route">
       <TopNavigationBar
-        isFavPhotoExist={favorites.length > 0}
-        selectedTopics={selectedTopics}
+        isFavPhotoExist={favorites.length > 0}        
         onSelectTopic={handleSelectTopic}
         topics={topics}
       />
@@ -49,7 +49,7 @@ const HomeRoute = ({ photos, topics }) => {
         photos={photos}
         favorites={favorites}
         toggleFavorites={toggleFavorites}
-        selectedTopics={selectedTopics}
+        // selectedTopics={selectedTopics}
         openModal={openModal}
       />
       {isModalOpen && (

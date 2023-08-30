@@ -10,7 +10,8 @@ export default function Application(props) {
     state,
     updateToFavPhotoIds,
     setPhotoSelected,
-    onClosePhotoDetailsModal
+    onClosePhotoDetailsModal,
+    fetchPhotosByTopic
   } = useApplicationData();
 
   return (
@@ -18,7 +19,7 @@ export default function Application(props) {
       <TopNavigationBar
         isFavPhotoExist={state.favorites.length > 0}
         selectedTopics={state.selectedTopics}
-        onSelectTopic={handleSelectTopic}
+        onSelectTopic={fetchPhotosByTopic}
         topics={state.topics}
       />
       <PhotoList
@@ -32,6 +33,7 @@ export default function Application(props) {
         <PhotoDetailsModal
           closeModal={onClosePhotoDetailsModal}
           selectedPhoto={state.selectedPhoto}
+          
         />
       )}
     </div>

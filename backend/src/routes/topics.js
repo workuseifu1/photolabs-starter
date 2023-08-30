@@ -18,8 +18,8 @@ module.exports = db => {
     const host = request.hostname;
     const port = process.env.PORT || 8001;
     const serverUrl = `${protocol}://${host}:${port}`;
-
-    db.query(`
+    console.log('server url',serverUrl)
+     const queryString = `
     SELECT 
       json_agg(
           json_build_object(
@@ -69,7 +69,9 @@ module.exports = db => {
       JOIN photo ON photo.topic_id = topic.id
       JOIN user_account ON user_account.id = photo.user_id
       WHERE topic.id = ${request.params.id}
-    `).then(({ rows }) => {
+    `;
+    console.log("query String ",queryString)
+    db.query(queryString).then(({ rows }) => {
       response.json(rows[0].topic_photo_data);
     });
   });

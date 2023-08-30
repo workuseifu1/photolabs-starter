@@ -5,6 +5,7 @@ import '../styles/PhotoFavButton.scss';
 
 function PhotoFavButton({favorites, toggleFavorites, photoId}) {
   const toggleFavoritePhoto = () => {
+    console.log("inside Toggle fav Photo",photoId);
     toggleFavorites(photoId)
   }
 

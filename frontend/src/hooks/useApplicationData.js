@@ -2,7 +2,8 @@ import { useState, useEffect, useReducer } from "react";
 const initialState = {
   //…rest of the state
   photoData: [],
-  topicData: []
+  topicData: [],
+  favorites:[]
 }
 // Define action types
 const FAV_PHOTO_ADDED = "FAV_PHOTO_ADDED";
@@ -47,21 +48,26 @@ function useApplicationData() {
 const [state,dispatch] = useReducer(reducer,initialState);
   const updateToFavPhotoIds = (photoId) => {
     if (state.favorites.includes(photoId)) {
-      const updatedFavorites = state.favorites.filter((favPhotoId) => favPhotoId !== photoId);
-      setState((prev) => ({ ...prev, favorites: updatedFavorites }));
+      // const updatedFavorites = state.favorites.filter((favPhotoId) => favPhotoId !== photoId);
+      dispatch({type:FAV_PHOTO_REMOVED, payload: {id: photoId}});
     } else {
-      setState((prev) => ({ ...prev, favorites: [...prev.favorites, photoId] }));
+      dispatch({type: FAV_PHOTO_ADDED, payload:{id:photoId}});
     }
   };
 
   const setPhotoSelected = (photo) => {
-    setState((prev) => ({ ...prev, selectedPhoto: photo }));
+    dispatch({type:SELECT_PHOTO, payload: {photo}});
   };
 
   const onClosePhotoDetailsModal = () => {
-    setState((prev) => ({ ...prev, selectedPhoto: null }));
+    dispatch({type: CLOSE_PHOTO_MODAL});
   };
-
+  const fetchPhotosByTopic = (topicId) => {
+    console.log('fetch photos by topic',topicId )
+    return fetch(`/api/topics/photos/${topicId}`)
+      .then(response => response.json())
+      .then(data =>dispatch({ type: SET_PHOTO_DATA, payload: data }));
+  };
   // Load initial data from API
   
   useEffect(() => {
@@ -77,6 +83,7 @@ const [state,dispatch] = useReducer(reducer,initialState);
 
   return {
     state,
+    fetchPhotosByTopic,
     updateToFavPhotoIds,
     setPhotoSelected,
     onClosePhotoDetailsModal
