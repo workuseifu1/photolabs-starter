@@ -10,7 +10,6 @@ const HomeRoute = ({ photos, topics,favorites,toggleFavorites,handleSelectTopic 
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   const openModal = (photoId) => {
-    // console.log("33 => photoId", photoId)
     const selectedPhoto = photos.find((photo) => photo.id === photoId);
     setSelectedPhoto(selectedPhoto);
     setIsModalOpen(true);

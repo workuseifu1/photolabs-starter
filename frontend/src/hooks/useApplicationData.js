@@ -46,7 +46,6 @@ const [state,dispatch] = useReducer(reducer,initialState);
   };
   
   const fetchPhotosByTopic = (topicId) => {
-    console.log('fetch photos by topic',topicId )
     return fetch(`/api/topics/photos/${topicId}`)
       .then(response => response.json())
       .then(data =>dispatch({ type: SET_PHOTO_DATA, payload: data }));
